@@ -6,11 +6,9 @@ export default function HandleWebSocket(req, res) {
    } else {
       const io = new Server(res.socket.server);
       res.socket.server.io = io;
-
       io.on('connection', (socket) => {
          console.log('Web Socket is starting a connection');
       });
    }
-
-   res.end();
+   //  res.end();
 }

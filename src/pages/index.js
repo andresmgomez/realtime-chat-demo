@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import io from 'socket.io-client';
+import ChatApp from 'src/components/layout/ChatApp';
 
 // import { Inter } from 'next/font/google';
 import styles from 'styles/Home.module.css';
@@ -21,7 +22,7 @@ export default function Home() {
    return (
       <>
          <main className={`${styles.main}`}>
-            <h1>Main Page</h1>
+            <ChatApp />
          </main>
       </>
    );

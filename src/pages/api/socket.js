@@ -1,7 +1,9 @@
 import { Server } from 'socket.io';
 
 export default function HandleWebSocket(req, res) {
-   if (!res.socket.server.io) {
+   if (res.socket.server.io) {
+      console.log('Web Socket already has a connection');
+   } else {
       const io = new Server(res.socket.server);
       res.socket.server.io = io;
 
@@ -10,6 +12,5 @@ export default function HandleWebSocket(req, res) {
       });
    }
 
-   console.log('Web Socket already has a connection');
    res.end();
 }

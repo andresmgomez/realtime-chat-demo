@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import Head from 'next/head';
 import Layout from 'src/components/layout/Layout';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -11,8 +12,22 @@ export default function App({ Component, pageProps }) {
    }, []);
 
    return (
-      <Layout>
-         <Component {...pageProps} />
-      </Layout>
+      <>
+         <Head>
+            <title>Realtime Chat Demo - Next.js</title>
+            <meta
+               name="description"
+               content="An experimental web application that uses web sockets"
+            />
+            <meta
+               name="viewport"
+               content="width=device-width, initialscale=1"
+            />
+            <link rel="icon" href="/favicon.ico" />
+         </Head>
+         <Layout>
+            <Component {...pageProps} />
+         </Layout>
+      </>
    );
 }

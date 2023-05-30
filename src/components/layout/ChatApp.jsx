@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
-const CreateModal = dynamic(() => import('../../containers/modal/CreateModal'));
+const UserModal = dynamic(() => import('../modal/UserModal'));
 
 export default function ChatApp() {
+   const [onlineUser, setOnlineUser] = useState('');
    const [addUserGroup, setAddUserGroup] = useState(true);
 
-   const onCloseCreateModal = () => {
+   const addUser = (user) => {
+      console.log(user);
+      setOnlineUser(user);
+   };
+
+   const closeModal = () => {
       setAddUserGroup(false);
    };
 
    let showCreateModal = (
-      <CreateModal onCloseCreateModal={onCloseCreateModal} />
+      <UserModal closeModal={closeModal} addUser={addUser} />
    );
    return (
       <>

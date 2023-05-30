@@ -1,24 +1,31 @@
 import { useState } from 'react';
 import styles from './UserModal.module.css';
 
-export default function UserModal() {
-   const [onlineUser, setOnlineUser] = useState('');
+export default function UserModal({ closeModal, addUser }) {
+   const [username, setUsername] = useState('');
    const [validateMinLength, setValidateMinLength] = useState(false);
    const [validateMaxLength, setValidateMaxLength] = useState(false);
 
    const handleUserInputField = (event) => {
       event.preventDefault();
-      const typeOnlineUser = event.target.value;
-      if (typeOnlineUser) {
+      const typedOnlineUser = event.target.value;
+      if (typedOnlineUser) {
          setValidateMinLength(false);
-         setOnlineUser(typeOnlineUser);
+         setUsername(typedOnlineUser);
       }
-      if (typeOnlineUser.length < 5) {
+      if (typedOnlineUser.length < 5) {
          setValidateMinLength(true);
          setValidateMaxLength(false);
-      } else if (typeOnlineUser.length > 12) {
+      } else if (typedOnlineUser.length > 12) {
          setValidateMinLength(false);
          setValidateMaxLength(true);
+      }
+   };
+
+   const submitNewUser = () => {
+      if (username) {
+         addUser(username.trim());
+         closeModal();
       }
    };
 
@@ -40,10 +47,10 @@ export default function UserModal() {
                            id="floatingInputGroup2"
                            placeholder="Username"
                            required
-                           value={onlineUser}
+                           value={username}
                            onChange={handleUserInputField}
                         />
-                        <label for="floatingInputGroup2">Username</label>
+                        <label htmlFor="floatingInputGroup2">Username</label>
                      </div>
                      {validateMinLength ? (
                         <div className="invalid-feedback">
@@ -61,7 +68,8 @@ export default function UserModal() {
                   <button
                      type="button"
                      className="btn btn-primary"
-                     disabled={validateMinLength || validateMaxLength}>
+                     disabled={validateMinLength || validateMaxLength}
+                     onClick={submitNewUser}>
                      New User
                   </button>
                </div>

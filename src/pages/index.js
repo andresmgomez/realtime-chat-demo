@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import ChatApp from 'src/components/layout/ChatApp';
 
+import ChatApp from 'src/components/layout/ChatApp';
 // import { Inter } from 'next/font/google';
 import styles from 'styles/Home.module.css';
 
 // const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
-   let webSocket;
+let socket;
 
+export default function Home() {
    const socketInitializer = async () => {
       await fetch('/api/socket');
-      webSocket = io();
+      socket = io();
    };
 
    useEffect(() => {

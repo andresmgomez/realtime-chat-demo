@@ -1,14 +1,14 @@
 import { Server } from 'socket.io';
 
-export default function HandleWebSocket(req, res) {
+const HandleWebSockets = (req, res) => {
    if (res.socket.server.io) {
       console.log('Web Socket already has a connection');
    } else {
       const io = new Server(res.socket.server);
       res.socket.server.io = io;
-      io.on('connection', (socket) => {
-         console.log('Web Socket is starting a connection');
-      });
    }
-   //  res.end();
-}
+
+   res.end();
+};
+
+export default HandleWebSockets;

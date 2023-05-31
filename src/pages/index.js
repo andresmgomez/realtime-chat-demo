@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import io from 'socket.io-client';
 
 import ChatApp from 'src/components/layout/ChatApp';
@@ -21,7 +21,7 @@ export default function Home() {
 
    return (
       <>
-         <main className={`${styles.main}`}>
+         <main>
             <ChatApp />
          </main>
       </>

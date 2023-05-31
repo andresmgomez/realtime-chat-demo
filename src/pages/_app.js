@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Layout from 'src/components/layout/Layout';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'styles/globals.css';
+import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {
    useEffect(() => {

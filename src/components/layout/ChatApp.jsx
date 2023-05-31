@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import ChatRooms from '../chat/ChatRooms/ChatRooms';
 
 const UserModal = dynamic(() => import('../modal/UserModal'));
 
@@ -30,8 +31,8 @@ export default function ChatApp() {
    );
    return (
       <>
-         {/* <div>Chat Container</div> */}
-         {addUserGroup && !userGroupFound ? showCreateModal : null}
+         <ChatRooms />
+         {/* {addUserGroup && !userGroupFound ? showCreateModal : null} */}
       </>
    );
 }

@@ -1,0 +1,41 @@
+.chatRooms {
+   height: 100vh;
+   max-width: 600px;
+   width: 100%;
+   background-color: rgba(227, 241, 244, 0.4);
+}
+
+.chatRoomsList {
+   height: calc(100vh -280px);
+   margin-left: 20px;
+}
+
+.chatUser {
+   margin-top: 35px;
+   padding-bottom: 14px;
+   border-bottom: 1px solid #dfe3ec;
+}
+
+.userAvatar {
+   width: 2.2rem;
+   height: 2.2rem;
+}
+
+.userInitials {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+   padding: 20px;
+   background-color: rgb(222, 221, 234);
+   color: #645dc7;
+   font-size: 12px;
+   font-weight: 600;
+   letter-spacing: 1px;
+}
+
+.username {
+   font-size: 16px;
+   color: #403e3e;
+}

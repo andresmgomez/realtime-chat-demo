@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 import ChatApp from 'src/components/layout/ChatApp';
 // import { Inter } from 'next/font/google';
-import styles from 'styles/Home.module.css';
+// import styles from 'styles/Home.module.css';
 
 // const inter = Inter({ subsets: ['latin'] });
 

@@ -1,3 +1,14 @@
 a {
    text-decoration: none;
 }
+
+input[type='text'],
+input[type='text']:focus,
+input[type='text']::placeholder {
+   background-color: rgb(230, 235, 245);
+   border: 1px solid rgb(230, 235, 245);
+   font-size: 16px;
+   padding: 10px 0 12px 10px;
+   width: 100%;
+   color: #686b70;
+}

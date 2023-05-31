@@ -1,0 +1,9 @@
+.btnSend {
+   margin-left: 10px;
+   background-color: #7269ef;
+   border: none;
+}
+
+.btnSend:hover {
+   background-color: #645dc7;
+}

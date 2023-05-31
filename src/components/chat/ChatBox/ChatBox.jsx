@@ -26,7 +26,7 @@ export default function ChatBox() {
                </div>
             </li>
             <li className="host-chat">
-               <div className={`float-end`}>
+               <div className="float-end">
                   <div className={`${styles.hostAvatar}`}>
                      <img
                         src="https://picsum.photos/seed/picsum/50/50"

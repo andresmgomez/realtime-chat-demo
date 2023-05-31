@@ -3,6 +3,7 @@
    max-width: 600px;
    width: 100%;
    background-color: rgba(227, 241, 244, 0.4);
+   box-shadow: 1px 0px 3px rgba(15, 34, 58, 0.12);
 }
 
 .chatRoomsList {

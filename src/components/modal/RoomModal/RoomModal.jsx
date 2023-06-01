@@ -1,10 +1,22 @@
 import { useState } from 'react';
 import ContainerModal from '../ContainerModal/ContainerModal';
 
-export default function RoomModal({ title, label, cta, closeModal }) {
+export default function RoomModal({ title, label, cta, addRoom, closeModal }) {
    const [chatRoom, setChatRoom] = useState('');
 
-   const handleRoomField = (event) => setChatRoom(event.target.value);
+   const handleRoomField = (event) => {
+      event.preventDefault();
+      const onlineRoomValue = event.target.value;
+      setChatRoom(onlineRoomValue);
+   };
+
+   const submitChatRoom = () => {
+      if (chatRoom) {
+         addRoom(chatRoom.trim());
+         console.log(chatRoom);
+         closeModal();
+      }
+   };
 
    return (
       <ContainerModal>
@@ -37,7 +49,11 @@ export default function RoomModal({ title, label, cta, closeModal }) {
                </form>
             </div>
             <div className="modal-footer">
-               <button type="button" className="btn btn-primary">
+               <button
+                  type="button"
+                  className="btn btn-primary"
+                  disabled={!chatRoom}
+                  onClick={submitChatRoom}>
                   {cta}
                </button>
             </div>

@@ -22,7 +22,7 @@ export default function UserModal({ title, label, cta, addUser, closeModal }) {
       }
    };
 
-   const submitNewUser = () => {
+   const submitOnlineUser = () => {
       if (onlineUser) {
          addUser(onlineUser.trim());
          closeModal();
@@ -74,7 +74,7 @@ export default function UserModal({ title, label, cta, addUser, closeModal }) {
                   type="button"
                   className="btn btn-primary"
                   disabled={validateMinLength || validateMaxLength}
-                  onClick={submitNewUser}>
+                  onClick={submitOnlineUser}>
                   {cta}
                </button>
             </div>

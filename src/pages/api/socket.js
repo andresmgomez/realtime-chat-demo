@@ -8,7 +8,7 @@ const HandleWebSockets = (req, res) => {
       res.socket.server.io = io;
    }
 
-   res.end();
+   // res.end();
 };
 
 export default HandleWebSockets;

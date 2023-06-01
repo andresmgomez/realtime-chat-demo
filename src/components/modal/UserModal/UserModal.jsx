@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import styles from './UserModal.module.css';
+import ContainerModal from '../ContainerModal/ContainerModal';
 
-export default function UserModal({ closeModal, addUser }) {
-   const [username, setUsername] = useState('');
+export default function UserModal({ title, label, cta, addUser, closeModal }) {
+   const [onlineUser, setOnlineUser] = useState('');
    const [validateMinLength, setValidateMinLength] = useState(false);
    const [validateMaxLength, setValidateMaxLength] = useState(false);
 
@@ -11,7 +11,7 @@ export default function UserModal({ closeModal, addUser }) {
       const typedOnlineUser = event.target.value;
       if (typedOnlineUser) {
          setValidateMinLength(false);
-         setUsername(typedOnlineUser);
+         setOnlineUser(typedOnlineUser);
       }
       if (typedOnlineUser.length < 5) {
          setValidateMinLength(true);
@@ -23,34 +23,32 @@ export default function UserModal({ closeModal, addUser }) {
    };
 
    const submitNewUser = () => {
-      if (username) {
-         addUser(username.trim());
+      if (onlineUser) {
+         addUser(onlineUser.trim());
          closeModal();
       }
    };
 
    return (
-      <div className="modal d-block">
-         <div className={`${styles.backdrop}`}></div>
-         <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-               <div className="modal-header">
-                  <h5 className="modal-title">Add User to Chat Group</h5>
-               </div>
-               <div className="modal-body">
-                  <div className="input-group has-validation">
-                     <span className="input-group-text">@</span>
+      <ContainerModal>
+         <div className="modal-content">
+            <div className="modal-header">
+               <h5 className="modal-title">{title}</h5>
+            </div>
+            <div className="modal-body p-4">
+               <form>
+                  <div className="input-group">
                      <div className="form-floating is-invalid">
                         <input
                            type="text"
-                           className="form-control is-invalid"
-                           id="floatingInputGroup2"
+                           className="form-control"
+                           id="chatUser"
                            placeholder="Username"
                            required
-                           value={username}
+                           value={onlineUser}
                            onChange={handleUserInputField}
                         />
-                        <label htmlFor="floatingInputGroup2">Username</label>
+                        <label htmlFor="chatUser">{label}</label>
                      </div>
                      {validateMinLength ? (
                         <div className="invalid-feedback">
@@ -63,18 +61,24 @@ export default function UserModal({ closeModal, addUser }) {
                         </div>
                      ) : null}
                   </div>
-               </div>
-               <div className="modal-footer">
-                  <button
-                     type="button"
-                     className="btn btn-primary"
-                     disabled={validateMinLength || validateMaxLength}
-                     onClick={submitNewUser}>
-                     New User
-                  </button>
-               </div>
+               </form>
+            </div>
+            <div className="modal-footer">
+               <button
+                  type="button"
+                  className="btn btn-link text-decoration-none"
+                  onClick={closeModal}>
+                  Close
+               </button>
+               <button
+                  type="button"
+                  className="btn btn-primary"
+                  disabled={validateMinLength || validateMaxLength}
+                  onClick={submitNewUser}>
+                  {cta}
+               </button>
             </div>
          </div>
-      </div>
+      </ContainerModal>
    );
 }

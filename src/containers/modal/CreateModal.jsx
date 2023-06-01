@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
 
-import UserModal from 'src/components/modal/UserModal';
+import ReactDOM from 'react-dom';
+import ContainerModal from 'src/components/modal/ContainerModal/ContainerModal';
 
 export default function CreateModal() {
    const [renderModal, setRenderModal] = useState(false);
@@ -12,7 +12,7 @@ export default function CreateModal() {
 
    let displayModal = renderModal
       ? ReactDOM.createPortal(
-           <UserModal />,
+           <ContainerModal />,
            document.getElementById('_user-modal')
         )
       : null;

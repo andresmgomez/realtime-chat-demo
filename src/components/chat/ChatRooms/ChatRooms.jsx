@@ -4,20 +4,16 @@ import { chatRooms } from 'src/data/chatRooms';
 import ChatRoom from '../ChatRoom/ChatRoom';
 import styles from './ChatRooms.module.css';
 
-export default function ChatUsers() {
+export default function ChatRooms({ displayModal }) {
    return (
       <section className={`${styles.chatRooms} me-lg-1 ms-lg-0`}>
          <div className="p-4">
             <div className="float-end">
-               <div
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  title="Add Room">
+               <div>
                   <button
                      type="button"
-                     class="btn btn-link text-decoration-none text-muted py-0"
-                     data-bs-toggle="modal"
-                     data-bs-target="addUserModal">
+                     className="btn btn-link text-decoration-none text-muted py-0"
+                     onClick={displayModal}>
                      <FaUser />
                   </button>
                </div>

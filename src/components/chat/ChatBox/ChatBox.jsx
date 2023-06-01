@@ -1,4 +1,3 @@
-import * as _ from 'underscore';
 import { chatHost } from 'src/data/chatHost';
 import ChatGuest from '../ChatGuest/ChatGuest';
 import ChatHost from '../ChatHost/ChatHost';
@@ -11,11 +10,11 @@ export default function ChatBox() {
       <section className={`${styles.chatConversation} p-3 p-lg-4`}>
          <ul className="list-unstyled mb-0">
             {chatGuest.map((guest, index) => {
-               return <ChatGuest guest={guest} key={index} />;
+               return <ChatGuest guest={guest} />;
             })}
             {/*  */}
             {chatHost.map((host, index) => {
-               return <ChatHost host={host} key={index} />;
+               return <ChatHost host={host} />;
             })}
          </ul>
       </section>

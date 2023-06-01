@@ -1,0 +1,48 @@
+.conversationList {
+   position: relative;
+   margin-right: 50px;
+   margin-bottom: 30px;
+}
+
+.hostAvatar {
+   position: absolute;
+   top: 11.8rem;
+   left: 102%;
+   order: 3;
+}
+
+.hostMessage {
+   position: relative;
+   order: 2;
+   max-width: 390px;
+   width: 100%;
+   margin-top: 15px;
+   padding: 12px 20px 24px;
+   background-color: #dfe3ec;
+   color: #232323;
+   text-align: left;
+   border-radius: 8px 8px 0 8px;
+}
+
+.hostMessage:before {
+   content: '';
+   position: absolute;
+   right: 0;
+   left: auto;
+   bottom: -10px;
+   border: 5px solid transparent;
+   border: 5px solid transparent;
+   border-left-color: #dfe3ec;
+   border-top-color: #dfe3ec;
+}
+
+.hostUser {
+   position: relative;
+   top: 1.5rem;
+   left: 74%;
+   /* margin-top: 22px; */
+   /* margin-right: 16px; */
+   font-size: 14px;
+   font-weight: 500;
+   /* text-align: right; */
+}

@@ -3,9 +3,9 @@ import io from 'socket.io-client';
 
 import ChatApp from 'src/components/layout/ChatApp';
 
-export default function Home() {
-   let socket;
+let socket;
 
+export default function Home() {
    const [username, setUsername] = useState('');
    const [selectRoom, setSelectRoom] = useState('');
 
@@ -15,15 +15,24 @@ export default function Home() {
    };
 
    const addOnlineRoom = (roomName) => {
+      socket.emit('add-room-event', { roomName });
+      console.log(roomName);
       setSelectRoom(roomName);
    };
 
-   const socketInitializer = async () => {
-      await fetch('/api/socket');
-      socket = io();
-   };
+   // const onCreateClientRoom = (data) => {
+   //    if (data) {
+   //       setSelectRoom(data);
+   //    }
+   // };
 
    useEffect(() => {
+      async function socketInitializer() {
+         await fetch('/api/socket');
+         socket = io();
+         // socket.on('add-room-listener', onCreateClientRoom);
+      }
+
       socketInitializer();
    }, []);
 

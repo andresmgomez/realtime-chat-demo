@@ -1,14 +1,19 @@
 import { Server } from 'socket.io';
+import { onCreateServerRoom } from './utils/chatServer';
 
-const HandleWebSockets = (req, res) => {
+export default function SocketHandler(req, res) {
    if (res.socket.server.io) {
-      console.log('Web Socket already has a connection');
-   } else {
-      const io = new Server(res.socket.server);
-      res.socket.server.io = io;
+      res.end();
+      return;
    }
 
-   res.end();
-};
+   const io = new Server(res.socket.server);
+   res.socket.server.io = io;
 
-export default HandleWebSockets;
+   io.on('connection', (socket) => {
+      socket.on('add-room-event', (data) => onCreateServerRoom(data, socket));
+   });
+
+   console.log('Chat Socket starting a connection');
+   res.end();
+}

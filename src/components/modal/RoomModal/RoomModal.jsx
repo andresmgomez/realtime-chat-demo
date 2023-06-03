@@ -13,7 +13,7 @@ export default function RoomModal({ title, label, cta, addRoom, closeModal }) {
    const submitChatRoom = () => {
       if (chatRoom) {
          addRoom(chatRoom.trim());
-         console.log(chatRoom);
+         // console.log(chatRoom);
          closeModal();
       }
    };

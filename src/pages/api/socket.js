@@ -7,6 +7,7 @@ const addOnlineRoom = (data, socket) => {
    if (roomsList.indexOf(((room) => room.roomName === data.roomName) === -1)) {
       roomsList.push({
          name: data.roomName,
+         initials: data.initials,
          username: data.username,
          messages: data.messages,
          createdAt: new Date()

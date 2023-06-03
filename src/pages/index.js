@@ -8,6 +8,7 @@ let socket;
 export default function Home() {
    const [username, setUsername] = useState('');
    const [messages, setMessages] = useState([]);
+   const [initials, setInitials] = useState([]);
    const [roomsList, setRoomsList] = useState([]);
    const [selectRoom, setSelectRoom] = useState('');
 
@@ -20,7 +21,7 @@ export default function Home() {
 
    useEffect(() => {
       socketInitializer();
-   }, []);
+   }, [selectRoom]);
 
    const onCreateClientRoom = (data) => {
       if (data) {
@@ -47,8 +48,15 @@ export default function Home() {
       localStorage.setItem('username', onlineUser);
    };
 
+   const getRoomInitials = (roomName) => {
+      const roomInitials =
+         roomName.charAt(1) + roomName.charAt(5).toUpperCase();
+      setInitials(roomInitials);
+   };
+
    const addOnlineRoom = (roomName) => {
-      socket.emit('add-room-event', { roomName, username, messages });
+      getRoomInitials(roomName);
+      socket.emit('add-room-event', { roomName, initials, username, messages });
       setSelectRoom(roomName);
    };
 
@@ -58,6 +66,7 @@ export default function Home() {
             <ChatApp
                username={username}
                addOnlineUser={addOnlineUser}
+               roomsList={roomsList}
                selectRoom={selectRoom}
                addOnlineRoom={addOnlineRoom}
             />

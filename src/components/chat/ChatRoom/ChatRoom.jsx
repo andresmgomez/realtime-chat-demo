@@ -14,7 +14,7 @@ export default function ChatRoom({ room }) {
                   </div>
                </div>
                <div className="flex-grow-1">
-                  <h5 className={`${styles.roomName} mb-0`}>{room.title}</h5>
+                  <h5 className={`${styles.roomName} mb-0`}>{room.name}</h5>
                </div>
             </div>
          </Link>

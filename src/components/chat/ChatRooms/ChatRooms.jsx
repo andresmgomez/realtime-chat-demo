@@ -1,10 +1,9 @@
 import { FaUser } from 'react-icons/fa';
-import { chatRooms } from 'src/data/chatRooms';
 
 import ChatRoom from '../ChatRoom/ChatRoom';
 import styles from './ChatRooms.module.css';
 
-export default function ChatRooms({ displayModal }) {
+export default function ChatRooms({ displayModal, roomsList }) {
    return (
       <section className={`${styles.chatRooms} me-lg-1 ms-lg-0`}>
          <div className="p-4">
@@ -22,7 +21,7 @@ export default function ChatRooms({ displayModal }) {
          </div>
          <div className={`${styles.chatRoomsList} p-4`}>
             <ul className="list-unstyled mb-0">
-               {chatRooms.map((room, index) => {
+               {roomsList.map((room, index) => {
                   return <ChatRoom room={room} key={index} />;
                })}
             </ul>

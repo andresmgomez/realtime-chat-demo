@@ -7,6 +7,7 @@ let socket;
 
 export default function Home() {
    const [username, setUsername] = useState('');
+   const [messages, setMessages] = useState([]);
    const [roomsList, setRoomsList] = useState([]);
    const [selectRoom, setSelectRoom] = useState('');
 
@@ -24,17 +25,18 @@ export default function Home() {
    const onCreateClientRoom = (data) => {
       if (data) {
          setSelectRoom(data);
-         console.log(selectRoom);
       }
    };
 
    const onDisplayClientRooms = (data) => {
-      const roomList = updateClientRoomList(data);
-      console.log(roomList);
+      if (data) {
+         updateClientRoomList(data);
+         console.log(data);
+      }
    };
 
-   const updateClientRoomList = (roomsList) => {
-      const updateRooms = roomsList.sort(
+   const updateClientRoomList = (onlineRooms) => {
+      const updateRooms = onlineRooms.sort(
          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
       setRoomsList(updateRooms);
@@ -46,9 +48,8 @@ export default function Home() {
    };
 
    const addOnlineRoom = (roomName) => {
-      socket.emit('add-room-event', { roomName });
+      socket.emit('add-room-event', { roomName, username, messages });
       setSelectRoom(roomName);
-      console.log(selectRoom);
    };
 
    return (

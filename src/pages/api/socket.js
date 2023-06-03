@@ -1,15 +1,20 @@
 import { Server } from 'socket.io';
-// import { onCreateServerRoom } from './utils/chatServer';
 
 let roomsList = [];
 let onlineUsers = {};
 
 const addOnlineRoom = (data, socket) => {
-   // if (roomsList.indexOf(((room) => room.name === data.roomName) === -1)) {
-   //    roomsList.push({ name: data.roomName, createdAt: new Date() });
-   // }
+   if (roomsList.indexOf(((room) => room.roomName === data.roomName) === -1)) {
+      roomsList.push({
+         name: data.roomName,
+         username: data.username,
+         messages: data.messages,
+         createdAt: new Date()
+      });
+   }
 
    onlineUsers[socket.id].emit('add-room-listener', data.roomName);
+   console.log(data);
    socket.broadcast.emit('room-list-listener', roomsList);
 };
 

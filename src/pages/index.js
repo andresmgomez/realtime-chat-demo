@@ -7,7 +7,38 @@ let socket;
 
 export default function Home() {
    const [username, setUsername] = useState('');
+   const [roomsList, setRoomsList] = useState([]);
    const [selectRoom, setSelectRoom] = useState('');
+
+   const socketInitializer = async () => {
+      await fetch('/api/socket');
+      socket = io();
+      socket.on('add-room-listener', onCreateClientRoom);
+      socket.on('room-list-listener', onDisplayClientRooms);
+   };
+
+   useEffect(() => {
+      socketInitializer();
+   }, []);
+
+   const onCreateClientRoom = (data) => {
+      if (data) {
+         setSelectRoom(data);
+         console.log(selectRoom);
+      }
+   };
+
+   const onDisplayClientRooms = (data) => {
+      const roomList = updateClientRoomList(data);
+      console.log(roomList);
+   };
+
+   const updateClientRoomList = (roomsList) => {
+      const updateRooms = roomsList.sort(
+         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setRoomsList(updateRooms);
+   };
 
    const addOnlineUser = (onlineUser) => {
       setUsername(onlineUser);
@@ -16,25 +47,9 @@ export default function Home() {
 
    const addOnlineRoom = (roomName) => {
       socket.emit('add-room-event', { roomName });
-      console.log(roomName);
       setSelectRoom(roomName);
+      console.log(selectRoom);
    };
-
-   // const onCreateClientRoom = (data) => {
-   //    if (data) {
-   //       setSelectRoom(data);
-   //    }
-   // };
-
-   useEffect(() => {
-      async function socketInitializer() {
-         await fetch('/api/socket');
-         socket = io();
-         // socket.on('add-room-listener', onCreateClientRoom);
-      }
-
-      socketInitializer();
-   }, []);
 
    return (
       <>

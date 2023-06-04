@@ -10,6 +10,7 @@ const RoomModal = dynamic(() => import('../modal/RoomModal/RoomModal'));
 export default function ChatApp({
    username,
    addOnlineUser,
+   sendOnlineMessage,
    roomsList,
    selectRoom,
    addOnlineRoom
@@ -59,7 +60,10 @@ export default function ChatApp({
             />
          </div>
          <div className="col-sm-12 col-md-8 col-lg-8">
-            <ChatUsers username={username} />
+            <ChatUsers
+               username={username}
+               sendOnlineMessage={sendOnlineMessage}
+            />
          </div>
          {renderUserModal && !userGroupFound ? showUserModal : null}
          {renderRoomModal ? showRoomModal : null}

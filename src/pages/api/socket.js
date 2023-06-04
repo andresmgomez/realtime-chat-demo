@@ -15,7 +15,6 @@ const addOnlineRoom = (data, socket) => {
    }
 
    onlineUsers[socket.id].emit('add-room-listener', data.roomName);
-   console.log(data);
    socket.broadcast.emit('room-list-listener', roomsList);
 };
 
@@ -37,6 +36,9 @@ export default function SocketHandler(req, res) {
       }
 
       socket.on('add-room-event', (data) => addOnlineRoom(data, socket));
+      socket.on('send-message-event', (data, socket) =>
+         sendOnlineMessage(data, socket)
+      );
       socket.on('choose-room-event', (data) => selectOnlineRoom(data, socket));
    });
 

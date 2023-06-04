@@ -17,6 +17,7 @@ export default function Home() {
       socket = io();
       socket.on('add-room-listener', onCreateClientRoom);
       socket.on('room-list-listener', onDisplayClientRooms);
+      socket.on('send-message-listener');
    };
 
    useEffect(() => {
@@ -60,12 +61,28 @@ export default function Home() {
       setSelectRoom(roomName);
    };
 
+   const sendOnlineMessage = (onlineMessage) => {
+      socket.emit('send-message-event', {
+         user: username,
+         message: onlineMessage
+      });
+
+      setMessages((userMessage) => [
+         ...userMessage,
+         {
+            user: username,
+            message: onlineMessage
+         }
+      ]);
+   };
+
    return (
       <>
          <main>
             <ChatApp
                username={username}
                addOnlineUser={addOnlineUser}
+               sendOnlineMessage={sendOnlineMessage}
                roomsList={roomsList}
                selectRoom={selectRoom}
                addOnlineRoom={addOnlineRoom}

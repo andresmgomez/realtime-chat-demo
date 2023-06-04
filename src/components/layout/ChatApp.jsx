@@ -34,7 +34,7 @@ export default function ChatApp({
    let showUserModal = (
       <UserModal
          title="User to Chat Group"
-         label="Username"
+         // label="Username"
          cta="Add User"
          addUser={addOnlineUser}
          closeModal={closeUserModal}

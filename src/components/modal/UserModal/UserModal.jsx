@@ -1,30 +1,54 @@
 import { useState } from 'react';
+
 import ContainerModal from '../ContainerModal/ContainerModal';
 
 export default function UserModal({ title, label, cta, addUser, closeModal }) {
-   const [onlineUser, setOnlineUser] = useState('');
+   const [firstName, setFirstName] = useState('');
+   const [lastName, setLastName] = useState('');
    const [validateMinLength, setValidateMinLength] = useState(false);
    const [validateMaxLength, setValidateMaxLength] = useState(false);
 
-   const handleUserInputField = (event) => {
+   const handleFirstName = (event) => {
       event.preventDefault();
-      const typedOnlineUser = event.target.value;
-      if (typedOnlineUser) {
+      const typedFirstName = event.target.value;
+
+      if (typedFirstName) {
          setValidateMinLength(false);
-         setOnlineUser(typedOnlineUser);
+         setFirstName(typedFirstName);
       }
-      if (typedOnlineUser.length < 5) {
+
+      if (typedFirstName.length < 5) {
          setValidateMinLength(true);
          setValidateMaxLength(false);
-      } else if (typedOnlineUser.length > 12) {
-         setValidateMinLength(false);
+      } else if (typedFirstName.length > 12) {
          setValidateMaxLength(true);
+         setValidateMinLength(false);
+      }
+   };
+
+   const handleLastName = (event) => {
+      event.preventDefault();
+      const typedLastName = event.target.value;
+
+      if (typedLastName) {
+         setValidateMinLength(false);
+         setLastName(typedLastName);
+      }
+
+      if (typedLastName.length < 5) {
+         setValidateMinLength(true);
+         setValidateMaxLength(false);
+      } else if (typedLastName.length > 12) {
+         setValidateMaxLength(true);
+         setValidateMinLength(false);
       }
    };
 
    const submitOnlineUser = () => {
+      const onlineUser = firstName.concat(' ', lastName);
+
       if (onlineUser) {
-         addUser(onlineUser.trim());
+         addUser(firstName.trim());
          closeModal();
       }
    };
@@ -37,29 +61,57 @@ export default function UserModal({ title, label, cta, addUser, closeModal }) {
             </div>
             <div className="modal-body p-4">
                <form>
-                  <div className="input-group">
-                     <div className="form-floating is-invalid">
-                        <input
-                           type="text"
-                           className="form-control"
-                           id="chatUser"
-                           placeholder="Username"
-                           required
-                           value={onlineUser}
-                           onChange={handleUserInputField}
-                        />
-                        <label htmlFor="chatUser">{label}</label>
+                  <div className="row">
+                     <div className="col-6">
+                        <div className="input-group">
+                           <div className="form-floating is-invalid">
+                              <input
+                                 type="text"
+                                 className="form-control"
+                                 id="chatUser"
+                                 required
+                                 value={firstName}
+                                 onChange={handleFirstName}
+                              />
+                              <label htmlFor="chatUser">First Name</label>
+                           </div>
+                           {validateMinLength ? (
+                              <div className="invalid-feedback">
+                                 First Name needs to be at least 5 characters
+                              </div>
+                           ) : null}
+                           {validateMaxLength ? (
+                              <div className="invalid-feedback">
+                                 First Name cannot be greater than 12 characters
+                              </div>
+                           ) : null}
+                        </div>
                      </div>
-                     {validateMinLength ? (
-                        <div className="invalid-feedback">
-                           Username should be at least 5 characters
+                     <div className="col-6">
+                        <div className="input-group">
+                           <div className="form-floating is-invalid">
+                              <input
+                                 type="text"
+                                 className="form-control"
+                                 id="chatUser"
+                                 required
+                                 value={lastName}
+                                 onChange={handleLastName}
+                              />
+                              <label htmlFor="chatUser">Last Name</label>
+                           </div>
+                           {validateMinLength ? (
+                              <div className="invalid-feedback">
+                                 Last Name needs to be at least 5 characters
+                              </div>
+                           ) : null}
+                           {validateMaxLength ? (
+                              <div className="invalid-feedback">
+                                 Last Name cannot be greater than 12 characters
+                              </div>
+                           ) : null}
                         </div>
-                     ) : null}
-                     {validateMaxLength ? (
-                        <div className="invalid-feedback">
-                           Username should be maximum 12 characters
-                        </div>
-                     ) : null}
+                     </div>
                   </div>
                </form>
             </div>

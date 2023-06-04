@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import ContainerModal from '../ContainerModal/ContainerModal';
 
-export default function UserModal({ title, label, cta, addUser, closeModal }) {
+export default function UserModal({ title, cta, addUser, closeModal }) {
    const [firstName, setFirstName] = useState('');
    const [lastName, setLastName] = useState('');
    const [validateMinLength, setValidateMinLength] = useState(false);

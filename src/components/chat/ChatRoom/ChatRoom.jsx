@@ -2,6 +2,12 @@ import Link from 'next/link';
 import styles from './ChatRoom.module.css';
 
 export default function ChatRoom({ room }) {
+   // let activeRoomStyles = [];
+
+   // if (chooseRoom) {
+   //    activeRoomStyles = ['active text-primary'];
+   // }
+
    return (
       <li className={`${styles.chatRoom}`}>
          <Link href="#">

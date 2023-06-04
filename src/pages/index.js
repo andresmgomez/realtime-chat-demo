@@ -7,6 +7,7 @@ let socket;
 
 export default function Home() {
    const [username, setUsername] = useState('');
+   const [newMessage, setNewMessage] = useState(null);
    const [messages, setMessages] = useState([]);
    const [initials, setInitials] = useState([]);
    const [roomsList, setRoomsList] = useState([]);
@@ -17,7 +18,7 @@ export default function Home() {
       socket = io();
       socket.on('add-room-listener', onCreateClientRoom);
       socket.on('room-list-listener', onDisplayClientRooms);
-      socket.on('send-message-listener');
+      socket.on('send-message-listener', onSendClientMessage);
    };
 
    useEffect(() => {
@@ -37,6 +38,12 @@ export default function Home() {
       }
    };
 
+   const onSendClientMessage = (data) => {
+      if (data) {
+         setNewMessage(data);
+      }
+   };
+
    const updateClientRoomList = (onlineRooms) => {
       const updateRooms = onlineRooms.sort(
          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -44,8 +51,15 @@ export default function Home() {
       setRoomsList(updateRooms);
    };
 
+   const getFirstName = (onlineUser) => {
+      const fullNameUser = onlineUser.split();
+      const topUser = fullNameUser[0];
+      return topUser;
+   };
+
    const addOnlineUser = (onlineUser) => {
-      setUsername(onlineUser);
+      const firstName = getFirstName(onlineUser);
+      setUsername(firstName);
       localStorage.setItem('username', onlineUser);
    };
 
@@ -59,7 +73,15 @@ export default function Home() {
       getRoomInitials(roomName);
       socket.emit('add-room-event', { roomName, initials, username, messages });
       setSelectRoom(roomName);
+      // chooseOnlineRoom(roomName);
    };
+
+   // const chooseOnlineRoom = (roomName) => {
+   //    if (roomName) {
+   //       setSelectRoom(roomName);
+   //       socket.emit('choose-room-event', { roomName });
+   //    }
+   // };
 
    const sendOnlineMessage = (onlineMessage) => {
       socket.emit('send-message-event', {

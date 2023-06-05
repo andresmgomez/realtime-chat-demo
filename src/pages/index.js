@@ -135,6 +135,7 @@ export default function Home() {
                username={username}
                addOnlineUser={addOnlineUser}
                sendOnlineMessage={sendOnlineMessage}
+               messages={messages}
                roomsList={roomsList}
                selectRoom={selectRoom}
                addOnlineRoom={addOnlineRoom}

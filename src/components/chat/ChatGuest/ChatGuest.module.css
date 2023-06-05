@@ -14,10 +14,6 @@
    font-weight: 500;
 }
 
-.chatContent {
-   margin-bottom: 10px;
-}
-
 .userMessage {
    position: relative;
    max-width: 390px;

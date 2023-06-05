@@ -11,6 +11,7 @@ export default function ChatApp({
    username,
    addOnlineUser,
    sendOnlineMessage,
+   messages,
    roomsList,
    selectRoom,
    addOnlineRoom
@@ -62,6 +63,7 @@ export default function ChatApp({
             <ChatUsers
                username={username}
                sendOnlineMessage={sendOnlineMessage}
+               messages={messages}
             />
          </div>
          {renderUserModal && !userGroupFound ? showUserModal : null}

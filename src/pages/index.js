@@ -47,17 +47,17 @@ export default function Home() {
       }
    };
 
-   const onDisplayClientRooms = (data) => {
-      if (data) {
-         updateClientRoomList(data);
-         console.log(data);
-      }
-   };
-
    const onSendClientMessage = (data) => {
       if (data) {
          setNewMessage(data.messages.message);
          console.log(data.messages);
+      }
+   };
+
+   const onDisplayClientRooms = (data) => {
+      if (data) {
+         updateClientRoomList(data);
+         console.log(data);
       }
    };
 
@@ -101,16 +101,15 @@ export default function Home() {
    const addOnlineRoom = (roomName) => {
       getRoomInitials(roomName);
       socket.emit('add-room-event', { roomName, initials, username, messages });
-      setSelectRoom(roomName);
-      // chooseOnlineRoom(roomName);
+      chooseOnlineRoom(roomName);
    };
 
-   // const chooseOnlineRoom = (roomName) => {
-   //    if (roomName) {
-   //       setSelectRoom(roomName);
-   //       socket.emit('choose-room-event', { roomName });
-   //    }
-   // };
+   const chooseOnlineRoom = (roomName) => {
+      if (roomName) {
+         setSelectRoom(roomName);
+         socket.emit('choose-room-event', roomName);
+      }
+   };
 
    const sendOnlineMessage = (message) => {
       socket.emit('send-message-event', {
@@ -139,6 +138,7 @@ export default function Home() {
                roomsList={roomsList}
                selectRoom={selectRoom}
                addOnlineRoom={addOnlineRoom}
+               chooseOnlineRoom={chooseOnlineRoom}
             />
          </main>
       </>

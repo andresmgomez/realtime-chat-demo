@@ -1,8 +1,9 @@
 .chatRoom {
-   margin-top: 35px;
+   margin-top: 10px;
    padding-bottom: 14px;
    border-bottom: 1px solid #dfe3ec;
    transition: all 0.3s linear;
+   cursor: pointer;
 }
 
 .roomImage {
@@ -27,7 +28,7 @@
 .roomName {
    margin-left: 5px;
    font-size: 16px;
-   color: #403e3e;
+   /* color: #403e3e; */
 }
 
 .roomName:hover {

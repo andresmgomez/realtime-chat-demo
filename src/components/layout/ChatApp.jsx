@@ -14,7 +14,8 @@ export default function ChatApp({
    messages,
    roomsList,
    selectRoom,
-   addOnlineRoom
+   addOnlineRoom,
+   chooseOnlineRoom
 }) {
    const [renderUserModal, setRenderUserModal] = useState(true);
    const [renderRoomModal, setRenderRoomModal] = useState(false);
@@ -57,6 +58,7 @@ export default function ChatApp({
                displayModal={displayModal}
                roomsList={roomsList}
                selectRoom={selectRoom}
+               chooseOnlineRoom={chooseOnlineRoom}
             />
          </div>
          <div className="col-sm-12 col-md-8 col-lg-8">

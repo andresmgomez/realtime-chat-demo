@@ -23,15 +23,15 @@ const sendOnlineMessage = (data, socket) => {
 
    let userRoom = roomsList.find((data) => data.name === room);
    userRoom.messages.push({ user, message, createdAt: new Date() });
-
    socket.broadcast.emit('send-message-listener', userRoom);
 };
 
-// const chooseOnlineRoom = (roomName, socket) => {
-//    let activeRoom = roomsList.find((data) => data.roomName === roomName);
-//    socket.broadcast.emit('choose-room-listener', data.roomName);
-//    onlineUsers[socket.id].emit('send-message-listener', activeRoom);
-// };
+const chooseOnlineRoom = (data, socket) => {
+   const { room } = data;
+
+   let activeRoom = roomsList.find((data) => data.room === room);
+   onlineUsers[socket.id].emit('send-message-listener', activeRoom);
+};
 
 export default function SocketHandler(req, res) {
    if (res.socket.server.io) {
@@ -50,12 +50,12 @@ export default function SocketHandler(req, res) {
          onlineUsers[socket.id] = socket;
       }
 
-      socket.emit('room-list-listener', roomsList);
       socket.on('add-room-event', (data) => addOnlineRoom(data, socket));
       socket.on('choose-room-event', (data) => chooseOnlineRoom(data, socket));
       socket.on('send-message-event', (data) =>
          sendOnlineMessage(data, socket)
       );
+      socket.emit('room-list-listener', roomsList);
    });
 
    res.end();

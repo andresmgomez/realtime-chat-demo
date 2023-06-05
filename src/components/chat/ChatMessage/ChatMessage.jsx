@@ -13,7 +13,6 @@ export default function ChatMessage({ sendMessage }) {
    const submitChatMessage = () => {
       if (chatMessage) {
          sendMessage(chatMessage.trim());
-         console.log(chatMessage);
          setChatMessage('');
       }
    };

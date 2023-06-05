@@ -19,16 +19,12 @@ const addOnlineRoom = (data, socket) => {
 };
 
 const sendOnlineMessage = (data, socket) => {
-   console.log(data);
    const { user, message, room } = data;
-   if (!room) return;
 
-   let userRoom = roomsList.find((data) => data.roomName === room);
+   let userRoom = roomsList.find((data) => data.name === room);
    userRoom.messages.push({ user, message, createdAt: new Date() });
 
-   if (userRoom) {
-      socket.broadcast.emit('send-message-listener', userRoom);
-   }
+   socket.broadcast.emit('send-message-listener', userRoom);
 };
 
 // const chooseOnlineRoom = (roomName, socket) => {
@@ -54,9 +50,10 @@ export default function SocketHandler(req, res) {
          onlineUsers[socket.id] = socket;
       }
 
+      socket.emit('room-list-listener', roomsList);
       socket.on('add-room-event', (data) => addOnlineRoom(data, socket));
       socket.on('choose-room-event', (data) => chooseOnlineRoom(data, socket));
-      socket.on('send-message-event', (data, socket) =>
+      socket.on('send-message-event', (data) =>
          sendOnlineMessage(data, socket)
       );
    });

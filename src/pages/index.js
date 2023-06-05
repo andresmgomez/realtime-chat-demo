@@ -25,6 +25,22 @@ export default function Home() {
       socketInitializer();
    }, [selectRoom]);
 
+   useEffect(() => {
+      if (newMessage && roomsList) {
+         let userRoomsList = [...roomsList];
+         userRoomsList = userRoomsList.filter(
+            (room) => room.name !== newMessage.name
+         );
+         userRoomsList = [...userRoomsList, { ...newMessage }];
+         updateClientRoomList(userRoomsList);
+         setNewMessage(null);
+      }
+   }, [newMessage]);
+
+   useEffect(() => {
+      updateUserRoomsWithMessages();
+   }, [roomsList]);
+
    const onCreateClientRoom = (data) => {
       if (data) {
          setSelectRoom(data);
@@ -40,7 +56,8 @@ export default function Home() {
 
    const onSendClientMessage = (data) => {
       if (data) {
-         setNewMessage(data);
+         setNewMessage(data.messages.message);
+         console.log(data.messages);
       }
    };
 
@@ -49,6 +66,18 @@ export default function Home() {
          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
       setRoomsList(updateRooms);
+   };
+
+   const updateUserRoomsWithMessages = () => {
+      let userRoomsList = [...roomsList];
+      let updateUserRoom = userRoomsList.find(
+         (room) => room.name === selectRoom
+      );
+
+      if (updateUserRoom) {
+         const updateUserMessages = updateUserRoom.messages;
+         setMessages(updateUserMessages);
+      }
    };
 
    const getFirstName = (onlineUser) => {
@@ -83,17 +112,18 @@ export default function Home() {
    //    }
    // };
 
-   const sendOnlineMessage = (onlineMessage) => {
+   const sendOnlineMessage = (message) => {
       socket.emit('send-message-event', {
          user: username,
-         message: onlineMessage
+         message,
+         room: selectRoom
       });
 
-      setMessages((userMessage) => [
-         ...userMessage,
+      setMessages((userMessages) => [
+         ...userMessages,
          {
             user: username,
-            message: onlineMessage
+            message
          }
       ]);
    };

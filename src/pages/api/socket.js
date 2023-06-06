@@ -50,12 +50,16 @@ export default function SocketHandler(req, res) {
          onlineUsers[socket.id] = socket;
       }
 
+      socket.emit('room-list-listener', roomsList);
       socket.on('add-room-event', (data) => addOnlineRoom(data, socket));
       socket.on('choose-room-event', (data) => chooseOnlineRoom(data, socket));
       socket.on('send-message-event', (data) =>
          sendOnlineMessage(data, socket)
       );
-      socket.emit('room-list-listener', roomsList);
+      socket.on('disconnect', () => {
+         delete onlineUsers[socket.id];
+         console.log('Chat socket has been disconnected');
+      });
    });
 
    res.end();

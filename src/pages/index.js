@@ -23,6 +23,12 @@ export default function Home() {
 
    useEffect(() => {
       socketInitializer();
+
+      if (socket) {
+         socket.off('room-list-listener');
+         socket.off('add-room-listener');
+         socket.off('send-message-listener');
+      }
    }, [selectRoom]);
 
    useEffect(() => {

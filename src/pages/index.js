@@ -86,16 +86,9 @@ export default function Home() {
       }
    };
 
-   const getFirstName = (onlineUser) => {
-      const fullNameUser = onlineUser.split();
-      const topUser = fullNameUser[0];
-      return topUser;
-   };
-
    const addOnlineUser = (onlineUser) => {
-      const firstName = getFirstName(onlineUser);
-      setUsername(firstName);
-      localStorage.setItem('username', onlineUser);
+      const fullName = setUsername(onlineUser);
+      localStorage.setItem('username', fullName);
    };
 
    const getRoomInitials = (roomName) => {

@@ -18,7 +18,8 @@ export default function ChatMessage({ sendMessage }) {
    };
 
    return (
-      <section className="p-3 p-lg-4 mb-0 border-top">
+      <section
+         className={`position-relative bottom-0 start-0 mb-0 ${styles.chatMessage}`}>
          <div className="row g-0">
             <div className="col">
                <input

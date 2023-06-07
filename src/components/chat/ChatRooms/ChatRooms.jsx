@@ -13,14 +13,12 @@ export default function ChatRooms({
       <section className={`${styles.chatRooms} me-lg-1 ms-lg-0`}>
          <div className="p-4">
             <div className="float-end">
-               <div>
-                  <button
-                     type="button"
-                     className="btn btn-link text-decoration-none text-muted py-0"
-                     onClick={displayModal}>
-                     <FaUser />
-                  </button>
-               </div>
+               <button
+                  type="button"
+                  className="btn btn-link text-decoration-none text-muted py-0"
+                  onClick={displayModal}>
+                  <FaUser />
+               </button>
             </div>
             <h4 class="mb-4">Chat Rooms</h4>
          </div>

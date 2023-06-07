@@ -1,3 +1,9 @@
+.chatMessage {
+   padding: 10px 0px;
+   width: 100%;
+   z-index: 1;
+}
+
 .btnSend {
    margin-left: 10px;
    background-color: #7269ef;

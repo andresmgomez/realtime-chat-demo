@@ -48,7 +48,7 @@ export default function UserModal({ title, cta, addUser, closeModal }) {
       const onlineUser = firstName.concat(' ', lastName);
 
       if (onlineUser) {
-         addUser(firstName.trim());
+         addUser(onlineUser.trim());
          closeModal();
       }
    };

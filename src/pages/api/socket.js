@@ -1,9 +1,12 @@
 import { Server } from 'socket.io';
+import { chatEvents, chatListeners } from 'src/constants/chatVariables';
 
 let roomsList = [];
 let onlineUsers = {};
 
 const addOnlineRoom = (data, socket) => {
+   // Check of the chat room is already in the list of chat rooms.
+   // Otherwise, create a new chat room with assigned fields
    if (roomsList.indexOf(((room) => room.roomName === data.roomName) === -1)) {
       roomsList.push({
          name: data.roomName,
@@ -14,23 +17,29 @@ const addOnlineRoom = (data, socket) => {
       });
    }
 
-   onlineUsers[socket.id].emit('add-room-listener', data.roomName);
-   socket.broadcast.emit('room-list-listener', roomsList);
+   // Send socket information with created chat room to the user request
+   onlineUsers[socket.id].emit(chatListeners.ADD_ROOM_SEVER, data.roomName);
+   // Return to listening clients that there is a change in rooms list
+   socket.broadcast.emit(chatListeners.ROOMS_LIST_SERVER, roomsList);
 };
 
 const sendOnlineMessage = (data, socket) => {
    const { user, message, room } = data;
 
+   // Find the room name from user's list of chat rooms received
    let userRoom = roomsList.find((data) => data.name === room);
+   // Pass each message created into the messages list with metadata
    userRoom.messages.push({ user, message, createdAt: new Date() });
-   socket.broadcast.emit('send-message-listener', userRoom);
+   // Return to listening clients the list of user's chat messages
+   socket.broadcast.emit(chatListeners.SEND_MESSAGE_SERVER, userRoom);
 };
 
 const chooseOnlineRoom = (data, socket) => {
    const { room } = data;
 
    let activeRoom = roomsList.find((data) => data.room === room);
-   onlineUsers[socket.id].emit('send-message-listener', activeRoom);
+   // Send socket information with active room to the user request
+   onlineUsers[socket.id].emit(chatListeners.SEND_MESSAGE_SERVER, activeRoom);
 };
 
 export default function SocketHandler(req, res) {
@@ -50,10 +59,14 @@ export default function SocketHandler(req, res) {
          onlineUsers[socket.id] = socket;
       }
 
-      socket.emit('room-list-listener', roomsList);
-      socket.on('add-room-event', (data) => addOnlineRoom(data, socket));
-      socket.on('choose-room-event', (data) => chooseOnlineRoom(data, socket));
-      socket.on('send-message-event', (data) =>
+      socket.emit(chatListeners.ROOMS_LIST_SERVER, roomsList);
+      socket.on(chatEvents.ADD_ROOM_CLIENT, (data) =>
+         addOnlineRoom(data, socket)
+      );
+      socket.on(chatEvents.CHOOSE_ROOM_CLIENT, (data) =>
+         chooseOnlineRoom(data, socket)
+      );
+      socket.on(chatEvents.SEND_MESSAGE_CLIENT, (data) =>
          sendOnlineMessage(data, socket)
       );
       socket.on('disconnect', () => {

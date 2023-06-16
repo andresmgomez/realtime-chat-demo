@@ -6,7 +6,7 @@
     <h4>A chat application that uses web sockets to send messages in real time when a user adds and chooses a online chat room.</h4>
 </div>
 
-  <img align="center" src="https://github.com/andresmgomez/realtime-chat-demo/blob/main/screenshot/chat-preview.gif" alt="Chat Demo" width="600px" />
+<br />
 
 ## App Features
 
@@ -16,22 +16,29 @@
 | Chat Messages      | User can send multiple messages after choosing a chat room             |
 | Real time Messages | Users that start a chat session can see host messages                  |
 
+<br />
+
 ## Built With
 
--  [Bootstrap](https://getbootstrap.com/docs/5.0/layout/columns/) - Responsive Web Layout
--  [Next.js](https://nextjs.org/docs/) - The Web Framework used
--  [Socket.io](https://socket.io/docs/v3/) - Chat Server and Client Socket
+<div align="left">
+  <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"/>
+  <img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+<img alt="Socket.io" src="https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101" />
+</div>
+
+<br />
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# clone the repository
+git clone <repository-name>
+
+# install project dependencies
+npm install
+
+# run the project in developer mode
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

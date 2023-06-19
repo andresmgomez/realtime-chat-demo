@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
+import { Provider } from 'react-redux';
 
 import Head from 'next/head';
 import Layout from 'src/components/layout/Layout';
+import store from '../store/redux/index';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.css';
@@ -26,7 +28,9 @@ export default function App({ Component, pageProps }) {
             <link rel="icon" href="/favicon.ico" />
          </Head>
          <Layout>
-            <Component {...pageProps} />
+            <Provider store={store}>
+               <Component {...pageProps} />
+            </Provider>
          </Layout>
       </>
    );
